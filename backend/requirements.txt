@@ -5,6 +5,8 @@ python-dotenv
 supabase
 pydantic
 pydantic-settings
+python-multipart
+requests
 
 # RAG Core
 pymupdf
