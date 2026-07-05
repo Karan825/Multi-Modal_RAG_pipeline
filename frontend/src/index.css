@@ -1,0 +1,20 @@
+/* Minimal reset — dashboard handles its own styles inline */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* react-login-page/page5 theme overrides */
+.login-page5 {
+  --login-bg: #5865F2 !important;
+  --login-btn-bg: #5865F2 !important;
+  --login-btn-hover: #4752c4 !important;
+  --login-btn-focus: #4752c4 !important;
+  --login-btn-active: #3c45a3 !important;
+  background-color: #5865F2 !important;
+  background: #5865F2 !important;
+}

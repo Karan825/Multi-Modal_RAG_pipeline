@@ -46,7 +46,7 @@ class VectorStore:
 
         print(f"FAISS index created with {len(documents)} vectors")
 
-    def search(self, query, k=5, score_threshold=0.3):
+    def search(self, query, k=5, score_threshold=2.0):
         if self.vectorstore is None:
             return []
 
@@ -54,7 +54,7 @@ class VectorStore:
 
         formatted_results = []
         for idx, (doc, score) in enumerate(results):
-            if score < score_threshold:
+            if score > score_threshold:
                 continue
 
             formatted_results.append({

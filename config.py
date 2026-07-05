@@ -27,7 +27,7 @@ def create_directories():
     for directory in directories:
         os.makedirs(directory, exist_ok=True)
     
-    print("✓ All directories created")
+    print("[OK] All directories created")
 
 if __name__ == "__main__":
     create_directories()

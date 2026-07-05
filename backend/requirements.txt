@@ -1,0 +1,31 @@
+# Backend API
+fastapi
+uvicorn[standard]
+python-dotenv
+supabase
+pydantic
+pydantic-settings
+
+# RAG Core
+pymupdf
+pytesseract
+Pillow
+
+# LangChain + LLM
+langchain
+langchain-community
+langchain-huggingface
+langchain-core
+langchain-groq
+groq
+
+# Vector Store & Embeddings
+faiss-cpu
+sentence-transformers
+transformers
+torch
+huggingface-hub
+
+# Utilities
+numpy
+pandas
