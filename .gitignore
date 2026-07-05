@@ -17,7 +17,9 @@ build/
 .eslintcache
 
 # Local Datasets & Vector Stores (re-generated during pipeline ingestion)
-data/
+data/images/
+data/raw/
+data/processed/
 
 # IDE / System files
 .vscode/
