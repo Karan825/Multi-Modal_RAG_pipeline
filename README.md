@@ -99,6 +99,7 @@ graph TD
 3. Create a `.env` file inside the `backend/` directory:
    ```env
    GROQ_API_KEY=your_groq_api_key
+   HF_TOKEN=your_free_huggingface_token  # Optional locally, required on Render's 512MB free tier
    SUPABASE_URL=your_supabase_project_url
    SUPABASE_ANON_KEY=your_supabase_anon_key
    SUPABASE_SERVICE_KEY=your_supabase_service_key
@@ -152,9 +153,10 @@ Open your browser and navigate to `http://127.0.0.1:5173/dashboard`.
 4. Add the environment variable `VITE_API_URL` pointing to your deployed backend.
 
 ### Backend (Render or Railway)
-To prevent serverless spin-down latency (where cold-starts would download the model weights and load the FAISS index files on every request), deploy the backend on a stateful web service:
-1. Connect your repository to Render or Railway.
+To deploy the backend on Render's 512MB RAM free tier without causing Out of Memory (OOM) errors:
+1. Connect your repository to Render.
 2. Set the root directory to `backend/`.
 3. Build Command: `pip install -r requirements.txt`
 4. Start Command: `uvicorn main:app --host 0.0.0.0 --port 10000`
-5. Configure your Supabase and Groq environment variables in the service dashboard.
+5. Configure your Supabase, Groq, and `HF_TOKEN` environment variables in the service dashboard.
+6. Crucially, add the `HF_TOKEN` (your free Hugging Face API key) to your Render environment variables. This automatically redirects vector search queries to Hugging Face's serverless Cloud Inference API, bypassing local PyTorch/Transformer RAM usage and keeping the container's memory footprint under 60 MB.

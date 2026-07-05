@@ -1,4 +1,3 @@
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.documents import Document
 import pickle
@@ -8,13 +7,24 @@ import os
 class VectorStore:
 
     def __init__(self, model_name="sentence-transformers/all-MiniLM-L6-v2"):
-        print(f"Loading embedding model: {model_name}")
+        hf_token = os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACEHUB_API_TOKEN")
 
-        self.embeddings = HuggingFaceEmbeddings(
-            model_name=model_name,
-            model_kwargs={"device": "cpu"},
-            encode_kwargs={"normalize_embeddings": True}
-        )
+        if hf_token:
+            print(f"Loading cloud Hugging Face Inference API for model: {model_name}")
+            from langchain_huggingface import HuggingFaceEndpointEmbeddings
+            self.embeddings = HuggingFaceEndpointEmbeddings(
+                model=model_name,
+                huggingfacehub_api_token=hf_token
+            )
+        else:
+            print(f"Loading local Hugging Face Embeddings for model: {model_name} (Warning: Requires ~500MB RAM)")
+            # Lazy import to prevent importing torch/sentence-transformers in memory-constrained cloud environments
+            from langchain_community.embeddings import HuggingFaceEmbeddings
+            self.embeddings = HuggingFaceEmbeddings(
+                model_name=model_name,
+                model_kwargs={"device": "cpu"},
+                encode_kwargs={"normalize_embeddings": True}
+            )
 
         self.vectorstore = None
         self.chunks = []

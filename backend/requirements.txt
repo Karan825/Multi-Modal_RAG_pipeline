@@ -21,9 +21,6 @@ groq
 
 # Vector Store & Embeddings
 faiss-cpu
-sentence-transformers
-transformers
-torch
 huggingface-hub
 
 # Utilities
