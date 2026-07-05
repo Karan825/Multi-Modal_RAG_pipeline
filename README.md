@@ -35,9 +35,9 @@ graph TD
         Generator["Groq LLM Service (llama-3.1-8b-instant)"]
 
         User -->|1. Chat Query / Page Filter| API
-        API -->|2. Check Page Reference (e.g. Page 3)| PageMatcher
+        API -->|2. Check Page Reference - e.g. Page 3| PageMatcher
         PageMatcher -->|3. Generate Query Vector| EmbedQuery
-        EmbedQuery -->|4. Similarity Search (L2 distance)| FAISS
+        EmbedQuery -->|4. Similarity Search - L2 distance| FAISS
         FAISS -->|5. Return Top 10 Context Chunks| API
         API -->|6. Format Prompt with Context + negative constraints| Generator
         Generator -->|7. Generate Response Answer| API
