@@ -74,6 +74,7 @@ graph TD
 
 ### 1. Ingestion and Document Processor
 *   **Native Table Parsing**: PyMuPDF's table finder detects vector line boundaries to parse complex data grids directly into Markdown tables. This keeps values aligned for similarity search without losing structure.
+*   **Extensible Vision LLM Fallback**: The pipeline contains built-in architecture for multimodal analysis. When configured with a vision model (e.g., Llama 3.2 Vision), the document processor converts extracted images/charts into base64 format and queries the model to generate descriptive text summaries of the visual graphics to index alongside regular text.
 *   **Recursive Splitting**: Text and Markdown tables are chunked using LangChain's `RecursiveCharacterTextSplitter` (chunk size: 1000 characters, overlap: 200 characters) to ensure semantic coherence.
 *   **Embedding Model**: Chunks are mapped into 384-dimensional dense vectors using `sentence-transformers/all-MiniLM-L6-v2`.
 
