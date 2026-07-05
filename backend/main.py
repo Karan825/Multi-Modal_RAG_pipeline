@@ -27,15 +27,15 @@ from document_processor import DocumentProcessor
 app = FastAPI()
 
 # Configure CORS
+allowed_origins_env = os.getenv("ALLOWED_CORS_ORIGINS")
+if allowed_origins_env:
+    origins = [origin.strip() for origin in allowed_origins_env.split(",") if origin.strip()]
+else:
+    origins = ["*"]  # Default to allowing all origins to ensure seamless Vercel/Render deployment
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5173",
-        "http://127.0.0.1:5174",
-        "https://your-frontend.vercel.app"
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -91,7 +91,7 @@ def create_session_fallback(user_id: str, title: str):
     IN_MEMORY_MESSAGES[chat_id] = []
     return new_chat
 
-# Final reload 5
+# Final reload 6
 def delete_session_fallback(chat_id: str):
     if chat_id in IN_MEMORY_CHATS:
         del IN_MEMORY_CHATS[chat_id]
