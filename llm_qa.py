@@ -1,7 +1,6 @@
 from typing import List
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
-import torch
 
 load_dotenv()
 
@@ -10,9 +9,6 @@ class LLMQA:
 
     def __init__(self, model_name="llama-3.1-8b-instant"):
         print(f"Loading LLM model via LangChain: {model_name}")
-
-        device = 0 if torch.cuda.is_available() else -1
-        device_name = 'GPU' if device == 0 else 'CPU'
 
         try:
             self.llm = ChatGroq(
